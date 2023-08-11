@@ -55,10 +55,10 @@ impl TxnBuilder {
             let utc: DateTime<Utc> = Utc::now();
 
             let p_txn: PlaceholderTxn = PlaceholderTxn {
-                from: self.from.take().unwrap(),
-                to: self.to.take().unwrap(),
-                value: self.value.take().unwrap(),
-                gas: self.gas.take().unwrap(),
+                from: self.from.clone().take().unwrap(),
+                to: self.to.clone().take().unwrap(),
+                value: self.value.clone().take().unwrap(),
+                gas: self.gas.clone().take().unwrap(),
                 time_stamp: utc.to_string(),
             };
 

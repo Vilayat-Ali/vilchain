@@ -1,51 +1,28 @@
-pub mod Block;
-pub mod Txn;
+pub mod block;
+pub mod txn;
 
 use serde::{Deserialize, Serialize};
 use std::collections::hash_map::DefaultHasher;
+use std::fmt::Debug;
 use std::hash::{Hash, Hasher};
 use std::{default::Default, fmt};
 
 extern crate chrono;
 
-#[derive(Default, Serialize, Deserialize, Hash)]
-pub enum FloatValueSign {
-    #[default]
-    Pos,
-    Neg,
-}
-
-impl fmt::Display for FloatValueSign {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match &self {
-            &FloatValueSign::Pos => {
-                write!(f, "+")
-            }
-            &FloatValueSign::Neg => {
-                write!(f, "-")
-            }
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize, Hash)]
+#[derive(Serialize, Deserialize, Hash, Clone)]
 pub struct FloatValue {
-    pub sign: FloatValueSign,
-    pub int_val: u32,
-    pub lead_frac_zeros: u32,
-    pub frac_val: u32,
+    pub int_val: u16,
+    pub lead_frac_zeros: u16,
+    pub frac_val: u16,
 }
 
 impl fmt::Display for FloatValue {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "{}{}.{}{}",
-            &self.sign.to_string(),
+            "{}.{}{}",
             &self.int_val,
-            (0..self.lead_frac_zeros as usize)
-                .map(|_x| "0")
-                .collect::<String>(),
+            "0".repeat(self.lead_frac_zeros as usize),
             &self.frac_val
         )
     }
@@ -54,7 +31,6 @@ impl fmt::Display for FloatValue {
 impl Default for FloatValue {
     fn default() -> Self {
         Self {
-            sign: FloatValueSign::Pos,
             int_val: 0,
             lead_frac_zeros: 0,
             frac_val: 0,
@@ -62,26 +38,24 @@ impl Default for FloatValue {
     }
 }
 
+impl Debug for FloatValue {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{}.{}{}",
+            &self.int_val,
+            "0".repeat(self.lead_frac_zeros as usize),
+            &self.frac_val
+        )
+    }
+}
+
 impl FloatValue {
-    pub fn new(
-        int_val: u32,
-        lead_frac_zeros: u32,
-        frac_val: u32,
-        sign: Option<FloatValueSign>,
-    ) -> Self {
-        match sign {
-            Some(sign_val) => Self {
-                sign: sign_val,
-                int_val,
-                lead_frac_zeros,
-                frac_val,
-            },
-            None => Self {
-                sign: FloatValueSign::default(),
-                int_val,
-                lead_frac_zeros,
-                frac_val,
-            },
+    pub fn new(int_val: u16, lead_frac_zeros: u16, frac_val: u16) -> Self {
+        Self {
+            int_val,
+            lead_frac_zeros,
+            frac_val,
         }
     }
 }
@@ -92,5 +66,5 @@ where
 {
     let mut s = DefaultHasher::new();
     data.hash(&mut s);
-    format!("{:x}", s.finish())
+    format!("0x{:x}", s.finish())
 }
