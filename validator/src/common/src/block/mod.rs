@@ -1,6 +1,6 @@
 pub mod builder;
 
-use super::{txn::Txn, FloatValue};
+use super::txn::Txn;
 use serde::{Deserialize, Serialize};
 use std::hash::Hash;
 

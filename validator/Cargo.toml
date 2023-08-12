@@ -1,5 +1,6 @@
 [workspace]
 members = [
     "src/server",
-    "src/common"
+    "src/common",
+    "src/consensus"
 ]
