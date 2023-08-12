@@ -1,0 +1,16 @@
+{
+  "name": "vilchain-docs",
+  "version": "1.0.0",
+  "description": "Vilchain docs",
+  "main": "index.js",
+  "scripts": {
+    "tailwind:watch": "yarn tailwindcss -c ./tailwind.config.js -i ./src/styles/tailwind.css -o ./src/styles/globals.css --watch",
+    "tailwind:build": "yarn tailwindcss -c ./tailwind.config.js -i ./src/styles/tailwind.css -o ./src/styles/globals.css --minify"
+  },
+  "repository": "https://www.github.com/vilayat-ali/vilchain",
+  "author": "Syed Vilayat Ali Rizvi",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}

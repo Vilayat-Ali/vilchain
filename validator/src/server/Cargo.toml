@@ -12,3 +12,5 @@ actix-web-actors = "4.2.0"
 
 common = { path = "../common" }
 consensus = { path = "../consensus" }
+dotenv = "0.15.0"
+envy = "0.4.2"
