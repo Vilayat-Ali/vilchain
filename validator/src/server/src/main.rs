@@ -8,4 +8,6 @@ fn main() {
         .set_value(FloatValue::new(1, 5, 142))
         .build()
         .unwrap();
+
+    println!("{:#?}", t1);
 }

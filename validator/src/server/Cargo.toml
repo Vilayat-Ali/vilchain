@@ -9,8 +9,8 @@ edition = "2021"
 actix = "0.13.0"
 actix-web = "4.3.1"
 actix-web-actors = "4.2.0"
+dotenv = "0.15.0"
+envy = "0.4.2"
 
 common = { path = "../common" }
 consensus = { path = "../consensus" }
-dotenv = "0.15.0"
-envy = "0.4.2"

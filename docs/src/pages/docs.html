@@ -6,8 +6,7 @@
     <title>Vilchain | Home</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./styles/globals.css" />
-    <link rel="stylesheet" href="./styles/index.css" />
+    <link rel="stylesheet" href="../styles/globals.css" />
     <!-- CSS -->
 
     <!-- FontAwesome -->
@@ -23,18 +22,18 @@
     <nav class="flex flex-row justify-between items-center p-4 bg-white shadow-md">
         <!-- Logo -->
         <div class="">
-            <img class="w-[2rem] h-[2rem]" src="./assets/images/logo.png" alt="vilchain-logo" />
+            <img class="w-[2rem] h-[2rem]" src="../assets/images/logo.png" alt="vilchain-logo" />
         </div>
         <!-- Logo -->
 
         <!-- Desktop Nav Menu -->
         <div class="hidden md:flex lg:flex flex-row justify-evenly items-center text-white">
             <!-- Link -->
-            <a class="text-sm no-underline mx-2 text-gray-800 hover:font-semibold hover:border-b-2-green-700" href="/">Home</a>
+            <a class="text-sm no-underline mx-2 text-gray-800 hover:font-semibold hover:border-b-2-green-700" href="#">Home</a>
             <!-- Link -->
 
             <!-- Link -->
-            <a class="text-sm no-underline mx-2 text-gray-800 hover:font-semibold hover:border-b-2-green-700" href="./pages/docs.html">Docs</a>
+            <a class="text-sm no-underline mx-2 text-gray-800 hover:font-semibold hover:border-b-2-green-700" href="#">Docs</a>
             <!-- Link -->
 
             <!-- Link -->
@@ -94,33 +93,27 @@
     </div>
     <!-- Mobile Drop Down -->
 
-    <!-- Hero Section -->
-    <section class="p-4 flex flex-col items-center">
-    </section>
-    <!-- Hero Section -->
-
-    <!-- Tech Stacks -->
-    <section class="">
-    </section>
-    <!-- Tech Stacks -->
-
-    <!-- Testimonials -->
-    <section class="">
-    </section>
-    <!-- Testimonials -->
-
-    <!-- Footer -->
-    <footer class="w-[100vw] p-4 shadow-lg flex flex-row justify-center md:justify-between items-center md:items-start">
-        <div class="flex flex-row justify-center items-center">
-            <img class="w-[2rem] h-[2rem]" src="./assets/images/logo.png" alt="vilchain-logo" />
-            <h2 class="ml-2 text-gray-700">VilChain (c) <span id="date_span"></span></h2>
+    <!-- Page Content -->
+    <div class="relative w-[100%] flex flex-row">
+        <!-- Sidebar -->
+        <div class="hidden md:flex flex-col bg-gray-50 w-[15vw] h-[100vh] overflow-y-scroll">
+            <!-- Sidebar link 1 -->
+            <div class="relative w-[100%] py-2">
+                <a class="px-[1rem] text-md" href="#">Link 1</a>
+            </div>
+            <!-- Sidebar link 1 -->
         </div>
-        <h2 class="hidden md:block ml-2 text-gray-700">All Rights Reserved.</h2>
-    </footer>
-    <!-- Footer -->
+        <!-- Sidebar -->
+
+        <!-- Content -->
+        <div class="w-[100vw] md:w-[100%] overflow-y-auto">
+        </div>
+        <!-- Content -->
+    </div>
+    <!-- Page Content -->
 
     <!-- Script -->
-    <script src="./script/nav.js"></script>
+    <script src="../script/nav.js"></script>
     <!-- Script -->
 </body>
 </html>
