@@ -1,16 +1,16 @@
-pub mod health;
+mod node;
 
-use actix_web::{HttpResponse, Result};
-use serde::Serialize;
+// routes
+use node::InfoRoutes;
 
-#[derive(Serialize)]
-pub struct Response {
-    pub message: String,
-}
+use actix_web::{web, Scope};
 
-pub async fn not_found() -> Result<HttpResponse> {
-    let response = Response {
-        message: "Resource not found".to_string(),
-    };
-    Ok(HttpResponse::NotFound().json(response))
+pub struct ApiBaseRoutes;
+
+impl ApiBaseRoutes {
+    pub fn get_routes() -> Scope {
+        web::scope("/api")
+            // validator node specific routes
+            .service(InfoRoutes::get_routes())
+    }
 }

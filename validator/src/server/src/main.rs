@@ -1,10 +1,11 @@
 use actix::{Actor, StreamHandler};
 use actix_web::{error::Error, web, App, HttpRequest, HttpResponse, HttpServer, Result};
 use actix_web_actors::ws;
+use pretty_env_logger;
 
 use server::{
     env::{provide_env, ENV},
-    routes::{health::healthcheck, not_found},
+    routes::ApiBaseRoutes,
 };
 
 pub struct Socket;
@@ -34,11 +35,18 @@ pub async fn index(req: HttpRequest, stream: web::Payload) -> Result<HttpRespons
 async fn main() -> std::io::Result<()> {
     let env: ENV = provide_env();
 
-    HttpServer::new(|| {
+    pretty_env_logger::init();
+
+    HttpServer::new(move || {
         App::new()
-            .service(healthcheck)
+            // middlwares
+            .wrap(actix_web::middleware::Logger::default())
+            .wrap(actix_web::middleware::Logger::new("%a %{User-Agent}i"))
+            .wrap(actix_web::middleware::DefaultHeaders::default())
+            // rest api endpoints
+            .service(ApiBaseRoutes::get_routes())
+            // web socket endpoint
             .route("/ws/", web::get().to(index))
-            .default_service(web::route().to(not_found))
     })
     .bind(("127.0.0.1", env.port))?
     .run()

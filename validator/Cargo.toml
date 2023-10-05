@@ -4,3 +4,5 @@ members = [
     "src/common",
     "src/consensus"
 ]
+
+resolver = "2"
