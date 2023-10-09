@@ -1,7 +1,7 @@
 use actix::{Actor, StreamHandler};
 use actix_web::{error::Error, web, App, HttpRequest, HttpResponse, HttpServer, Result};
 use actix_web_actors::ws;
-use pretty_env_logger;
+
 
 use server::{
     env::{provide_env, ENV},

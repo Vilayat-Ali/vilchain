@@ -1,8 +1,7 @@
 [workspace]
-members = [
-    "src/server",
-    "src/common",
-    "src/consensus"
-]
+members = ["src/server", "src/common", "src/consensus"]
 
 resolver = "2"
+
+[workspace.dependencies]
+serde = { version = "1.0.183", features = ["derive"] }
