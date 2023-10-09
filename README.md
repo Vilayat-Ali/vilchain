@@ -1,6 +1,6 @@
 # VilChain
 
-![VilChain Logo](./assets/logo.svg)
+![VilChain Logo](https://st4.depositphotos.com/16552764/20957/v/450 depositphotos_209572350-stock-illustration-block-chain-logo-illustration-block.jpg)
 
 VilChain is a cutting-edge blockchain implementation crafted with the power and elegance of the Rust programming language. This project is inspired by the innovative spirit cultivated at Nonceblox, our previous company, where we witnessed the transformative potential of blockchain technology.
 
