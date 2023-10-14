@@ -5,7 +5,15 @@ use std::{
     hash::{Hash, Hasher},
 };
 
-pub fn generate_wallet_creds() -> (String, Vec<String>) {
+use serde::Serialize;
+
+#[derive(Serialize)]
+pub struct WalletCreds {
+    pub address: String,
+    pub seeds: Vec<String>,
+}
+
+pub fn generate_wallet_creds() -> WalletCreds {
     let mut seed_word_vec: Vec<String> = Vec::with_capacity(12);
     let mut s = DefaultHasher::new();
 
@@ -16,5 +24,8 @@ pub fn generate_wallet_creds() -> (String, Vec<String>) {
 
     seed_word_vec.hash(&mut s);
 
-    (format!("0x{:x}", s.finish()), seed_word_vec)
+    WalletCreds {
+        address: format!("0x{:x}", s.finish()),
+        seeds: seed_word_vec,
+    }
 }
