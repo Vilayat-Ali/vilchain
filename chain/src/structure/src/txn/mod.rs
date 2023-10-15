@@ -37,13 +37,13 @@ impl TxnBuilder {
         }
     }
 
-    pub fn set_from(&mut self, from: String) -> &mut Self {
-        self.from = Some(from);
+    pub fn set_from(&mut self, from: impl Into<String>) -> &mut Self {
+        self.from = Some(from.into());
         self
     }
 
-    pub fn set_to(&mut self, to: String) -> &mut Self {
-        self.to = Some(to);
+    pub fn set_to(&mut self, to: impl Into<String>) -> &mut Self {
+        self.to = Some(to.into());
         self
     }
 

@@ -1,5 +1,6 @@
-use std::io::Write;
 
+
+use std::io::Write;
 use wallet::cred::generate_wallet_creds;
 use wallet::filer::{FileType, Filer};
 

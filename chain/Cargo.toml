@@ -1,5 +1,5 @@
 [workspace]
-members = ["src/node", "src/structure", "src/utils"]
+members = ["src/node", "src/structure", "src/utils", "src/wallet"]
 
 resolver = "2"
 
@@ -8,3 +8,4 @@ ws = "0.9.2"
 bcrypt = "0.15.0"
 tokio = { version = "1.33.0", features = ["full"] }
 serde = { version = "1.0.189", features = ["derive"] }
+serde_json = "1.0.107"

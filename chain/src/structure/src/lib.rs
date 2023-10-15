@@ -2,7 +2,7 @@ pub mod block;
 pub mod txn;
 
 use serde::{Deserialize, Serialize};
-use std::{default, fmt, iter};
+use std::{default, fmt};
 
 #[derive(Debug, Serialize, Deserialize, Hash, Clone)]
 pub struct FloatValue {
@@ -27,7 +27,7 @@ impl fmt::Display for FloatValue {
             f,
             "{}.{}{}",
             self.int_val,
-            iter::repeat("0").take(self.zero_count).collect::<String>(),
+            "0".repeat(self.zero_count),
             self.frac_val
         )
     }

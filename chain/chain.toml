@@ -1,5 +1,0 @@
-[node]
-count = 16           # count of nodes in the chain
-generate_logs = true # generate logs as log files
-
-[chain]
