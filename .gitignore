@@ -1,5 +1,7 @@
-*/target
-*/Cargo.lock
-*/node_modules
-*/yarn.lock
+**/*/target
+**/*/Cargo.lock
+**/*/node_modules
+**/*/yarn.lock
 */**/.env
+*/**/bun.lockb
+**/*/.next
