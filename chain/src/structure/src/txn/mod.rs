@@ -1,44 +1,39 @@
+pub mod non_publishable_txn;
+pub mod publishable_txn;
+
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
+use self::non_publishable_txn::NonPublishableTransaction;
 use crate::FloatValue;
 
-pub trait NonPublishedTransaction {}
-
-pub trait PublishedTransaction {}
-
-#[derive(Debug, Serialize, Deserialize, Hash, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Txn {
-    pub hash: String,
+    pub hash: Option<String>,
     pub from: String,
     pub to: String,
     pub value: FloatValue,
     pub timestamp: SystemTime,
-    pub fee: FloatValue,
+    pub fee: Option<FloatValue>,
 }
 
-impl Txn {
-    pub fn compute_hash(&self) -> String {
-        String::new()
-    }
-}
-
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct TxnBuilder {
     pub hash: Option<String>,
     pub from: Option<String>,
     pub to: Option<String>,
-    pub value: FloatValue,
-    pub timestamp: Option<SystemTime>, // time when submitted for validation
+    pub value: Option<FloatValue>,
+    pub fee: Option<FloatValue>,
 }
 
 impl TxnBuilder {
-    pub fn builder() -> Self {
-        TxnBuilder {
+    pub fn new() -> Self {
+        Self {
             hash: None,
             from: None,
             to: None,
-            value: FloatValue::default(),
-            timestamp: None,
+            value: None,
+            fee: None,
         }
     }
 
@@ -53,7 +48,30 @@ impl TxnBuilder {
     }
 
     pub fn set_value(&mut self, value: FloatValue) -> &mut Self {
-        self.value = value;
+        self.value = Some(value);
         self
+    }
+
+    pub fn build(&mut self) -> impl NonPublishableTransaction {
+        Txn {
+            hash: None,
+            from: self
+                .from
+                .clone()
+                .take()
+                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'from'"),
+            to: self
+                .to
+                .clone()
+                .take()
+                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'to'"),
+            value: self
+                .value
+                .clone()
+                .take()
+                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'value'"),
+            timestamp: SystemTime::now(),
+            fee: None,
+        }
     }
 }
