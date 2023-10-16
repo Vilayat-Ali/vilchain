@@ -1,37 +1,37 @@
 pub mod non_publishable_txn;
 pub mod publishable_txn;
 
-use std::time::SystemTime;
-
 use super::txn::non_publishable_txn::NonPublishableTransaction;
 use crate::FloatValue;
-use bcrypt::{hash, verify, BcryptResult};
 use serde::{Deserialize, Serialize};
+use sha3::{Digest, Keccak256};
+use std::{hash::Hash, time::SystemTime};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Hash, Clone, Debug)]
 pub struct Txn {
-    hash: Option<String>,
-    from: String,
-    to: String,
-    value: FloatValue,
-    fee: Option<FloatValue>,
-    timestamp: SystemTime,
+    pub hash: Option<String>,
+    pub from: String,
+    pub to: String,
+    pub value: FloatValue,
+    pub fee: Option<FloatValue>,
+    pub timestamp: SystemTime,
 }
 
 impl Txn {
-    pub fn compute_hash(&self) -> BcryptResult<String> {
-        let hash: String = hash(
-            format!(
-                "{}-{}-{}-{:#?}",
-                &self.from, &self.to, &self.value, &self.timestamp
-            ),
-            225,
-        )?;
-        Ok(hash)
+    pub fn compute_hash(&self) -> String {
+        let struct_bytes = serde_json::to_vec(&self).unwrap();
+        let mut hasher = Keccak256::new();
+        hasher.update(struct_bytes);
+        let result = hasher.finalize();
+        let hash_hex = format!("{:x}", result);
+        format!("0x{}", hash_hex)
     }
 
-    pub fn verify_hash(&self, hash: &str) -> BcryptResult<bool> {
-        verify(hash, self.hash.clone().unwrap().as_ref())
+    pub fn verify_hash(&self, hash: String) -> bool {
+        println!("{}", self.compute_hash());
+        println!("{}", self.compute_hash());
+
+        self.compute_hash() == hash
     }
 }
 
