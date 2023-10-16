@@ -1,20 +1,21 @@
-use structure::{
-    txn::{non_publishable_txn::NonPublishableTransaction, TxnBuilder},
-    FloatValue,
-};
+extern crate log;
+extern crate pretty_env_logger;
+extern crate ws;
+
+use dotenv;
+
+use ws::listen;
 
 fn main() {
-    let mut t = TxnBuilder::new()
-        .set_from("asdsdasd")
-        .set_to("asdasdasd")
-        .set_value(FloatValue::new(12, 23, 43))
-        .build()
-        .unwrap();
+    dotenv::dotenv().ok();
+    pretty_env_logger::init();
 
-    let d = t.publish();
-
-    println!("{:#?}", serde_json::to_string_pretty(&d).unwrap());
-    let hash = d.clone().hash.unwrap();
-    println!("{:#?}", hash);
-    println!("{:#?}", d.verify_hash(hash));
+    if let Err(error) = listen("127.0.0.1:3012", |out| {
+        move |msg| {
+            println!("Server got message '{}'. ", msg);
+            out.send(msg)
+        }
+    }) {
+        println!("Failed to create WebSocket due to {:?}", error);
+    }
 }
