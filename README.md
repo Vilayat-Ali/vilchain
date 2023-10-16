@@ -35,22 +35,19 @@ To get started with VilChain, follow these simple steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/vilchain/vilchain.git
+$ git clone https://github.com/vilchain/vilchain.git
+$ cd vilchain
 ```
 
 2. Build and Configure VilChain
 
 ```bash
-cd vilchain
+$ cargo build --release
 ```
 
 ```bash
-cargo build --release
-```
-
-```bash
-cd explorer
-npm install / yarn install 
+$ cd explorer
+$ npm install / yarn install 
 ```
 
 
