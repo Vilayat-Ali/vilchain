@@ -16,16 +16,6 @@ VilChain was created with an evil intention in mind, that is, to disrupt the sys
 
 VilChain is crafted with love (and a bit of mischief) using the following technologies:
 
-- **Rust:** The backbone of VilChain, providing robustness and performance.
-
-- **TypeScript:** Adding a layer of elegance and flexibility to the VilChain ecosystem.
-
-- **C:** Because why not? A dash of C to spice things up and ensure efficiency.
-
-## Tech Stack
-
-Here's a list of technologies used to make this evil plan come to life!
-
 ### [Rust](https://www.rust-lang.org) - The Greatest Programming Language of ALL TIME
 
 Rust, the maestro of programming languages, conducts an orchestra of efficiency, safety, and performance like no other. With its fearless concurrency and zero-cost abstractions, Rust effortlessly dances on the edge of raw power and unwavering reliability. This language, born out of a rebellion against the status quo, empowers developers to create robust and lightning-fast software without compromising on safety. Rust doesn't just write code; it crafts a symphony of systems programming, leaving other languages in its wake. Brace yourself for a coding experience that's as audacious as it is impeccable—because when it comes to Rust, mediocrity is simply not in the score. 🦀✨
