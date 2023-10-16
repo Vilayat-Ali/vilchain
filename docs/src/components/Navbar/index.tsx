@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="hidden md:flex flex-row justify-between items-center">
           {/* Menu Items */}
           {menuList.map((menu: MenuItem) => (
-            <Link href={menu.href}>
+            <Link href={menu.href} key={menu.href}>
               <div
                 className={`${
                   pathname === menu.href ? "text-white" : "text-gray-400"
@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="hidden md:flex flex-row justify-between items-center">
           {/* Menu Items */}
           {socialLinks.map((social: SocialLink) => (
-            <Link href={social.href}>
+            <Link href={social.href} key={social.href}>
               <div className="text-white hover:text-white mx-2 text-3xl">
                 {social.icon({})}
               </div>

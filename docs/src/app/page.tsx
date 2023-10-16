@@ -1,6 +1,9 @@
 // lib
 import Link from "next/link";
 
+// components
+import Heading from "@/components/Heading";
+
 const page = () => {
   return (
     <div>
@@ -41,6 +44,54 @@ const page = () => {
         </div>
       </div>
       {/* Hero Section */}
+
+      <main className="px-0 md:px-[6vw]">
+        {/* Testimonial */}
+        <section className="overflow-x-hidden rounded-md px-0 py-6 text-center shadow-lg md:p-12 md:text-left">
+          <Heading text="Features" />
+        </section>
+        {/* Testimonial */}
+
+        {/* Testimonial */}
+        <section className="overflow-x-hidden rounded-md px-0 py-6 text-center shadow-lg md:p-12 md:text-left">
+          <Heading text="Testimonials" />
+          <div className="flex justify-center">
+            <div className="max-w-3xl">
+              {[...Array(3)].map((testimonial: any) => (
+                <div
+                  className="block rounded-lg bg-white w-[90%] mx-auto my-4 p-6 shadow-lg dark:bg-neutral-800 dark:shadow-black/20"
+                  key={testimonial}
+                >
+                  <div className="md:flex md:flex-row">
+                    <div className="mx-auto mb-6 flex w-36 items-center justify-center md:mx-0 md:w-96 lg:mb-0">
+                      <img
+                        src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20%2810%29.jpg"
+                        className="rounded-full shadow-md dark:shadow-black/30"
+                        alt="woman avatar"
+                      />
+                    </div>
+                    <div className="md:ml-6">
+                      <p className="mb-6 font-light text-neutral-500 dark:text-neutral-300">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Id quam sapiente molestiae numquam quas,
+                        voluptates omnis nulla ea odio quia similique corrupti
+                        magnam.
+                      </p>
+                      <p className="mb-2 text-xl font-semibold text-neutral-800 dark:text-neutral-200">
+                        Anna Smith
+                      </p>
+                      <p className="mb-0 font-semibold text-neutral-500 dark:text-neutral-400">
+                        Product manager
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        {/* Testimonial */}
+      </main>
     </div>
   );
 };

@@ -25,7 +25,7 @@ export const menuList: MenuItem[] = [
     },
     {
         label: 'Meet the Jerk',
-        href: '/jerk',
+        href: '/meet-the-jerk',
     },
     {
         label: '',
