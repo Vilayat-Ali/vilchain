@@ -1,7 +1,5 @@
-use serde::{Deserialize, Serialize};
-
 use super::Txn;
 
-pub trait PublishableTransaction: Serialize + Deserialize<'static> + std::fmt::Debug {}
+pub trait PublishableTransaction {}
 
 impl PublishableTransaction for Txn {}

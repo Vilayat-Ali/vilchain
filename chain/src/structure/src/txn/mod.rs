@@ -1,39 +1,52 @@
 pub mod non_publishable_txn;
 pub mod publishable_txn;
 
-use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
 
-use self::non_publishable_txn::NonPublishableTransaction;
+use super::txn::non_publishable_txn::NonPublishableTransaction;
 use crate::FloatValue;
+use bcrypt::{hash, verify, BcryptResult};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Txn {
-    pub hash: Option<String>,
-    pub from: String,
-    pub to: String,
-    pub value: FloatValue,
-    pub timestamp: SystemTime,
-    pub fee: Option<FloatValue>,
+    hash: Option<String>,
+    from: String,
+    to: String,
+    value: FloatValue,
+    fee: Option<FloatValue>,
+    timestamp: SystemTime,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+impl Txn {
+    pub fn compute_hash(&self) -> BcryptResult<String> {
+        let hash: String = hash(
+            format!(
+                "{}-{}-{}-{:#?}",
+                &self.from, &self.to, &self.value, &self.timestamp
+            ),
+            225,
+        )?;
+        Ok(hash)
+    }
+
+    pub fn verify_hash(&self, hash: &str) -> BcryptResult<bool> {
+        verify(hash, self.hash.clone().unwrap().as_ref())
+    }
+}
+
 pub struct TxnBuilder {
-    pub hash: Option<String>,
     pub from: Option<String>,
     pub to: Option<String>,
-    pub value: Option<FloatValue>,
-    pub fee: Option<FloatValue>,
+    pub value: FloatValue,
 }
 
 impl TxnBuilder {
     pub fn new() -> Self {
         Self {
-            hash: None,
             from: None,
             to: None,
-            value: None,
-            fee: None,
+            value: FloatValue::default(),
         }
     }
 
@@ -48,30 +61,23 @@ impl TxnBuilder {
     }
 
     pub fn set_value(&mut self, value: FloatValue) -> &mut Self {
-        self.value = Some(value);
+        self.value = value;
         self
     }
 
-    pub fn build(&mut self) -> impl NonPublishableTransaction {
-        Txn {
+    pub fn build<'a>(&'a mut self) -> Result<Txn, String>
+    where
+        Txn: NonPublishableTransaction + Serialize + Deserialize<'a> + std::fmt::Debug,
+    {
+        let txn = Txn {
             hash: None,
-            from: self
-                .from
-                .clone()
-                .take()
-                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'from'"),
-            to: self
-                .to
-                .clone()
-                .take()
-                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'to'"),
-            value: self
-                .value
-                .clone()
-                .take()
-                .expect("Txn Builder Error: Unpublishable txn builder cannot resolve 'value'"),
-            timestamp: SystemTime::now(),
+            from: self.from.clone().take().unwrap(),
+            to: self.to.clone().take().unwrap(),
+            value: self.value.clone(),
             fee: None,
-        }
+            timestamp: SystemTime::now(),
+        };
+
+        Ok(txn)
     }
 }
