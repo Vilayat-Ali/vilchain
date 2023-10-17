@@ -13,7 +13,6 @@ impl NonPublishableTransaction for Txn {
     where
         Self: PublishableTransaction + Serialize + Deserialize<'a> + std::fmt::Debug,
     {
-        println!("!!=> {}", self.compute_hash());
         self.hash = Some(self.compute_hash());
         self.clone()
     }

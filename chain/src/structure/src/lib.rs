@@ -1,4 +1,5 @@
 pub mod block;
+pub mod chain;
 pub mod txn;
 
 use serde::{Deserialize, Serialize};
