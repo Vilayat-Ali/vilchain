@@ -4,7 +4,7 @@ members = ["src/node", "src/structure", "src/utils", "src/wallet"]
 resolver = "2"
 
 [workspace.dependencies]
-ws = "0.9.2"
+tokio-tungstenite = "0.20.1"
 tokio = { version = "1.33.0", features = ["full"] }
 serde = { version = "1.0.189", features = ["derive"] }
 serde_json = "1.0.107"

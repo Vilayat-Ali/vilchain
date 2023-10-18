@@ -21,10 +21,6 @@ impl PartialEq for Txn {
     fn eq(&self, other: &Self) -> bool {
         self.hash == other.hash
     }
-
-    fn ne(&self, other: &Self) -> bool {
-        self.hash != other.hash
-    }
 }
 
 impl Eq for Txn {}
@@ -47,6 +43,7 @@ impl Txn {
     }
 }
 
+#[derive(Default)]
 pub struct TxnBuilder {
     pub from: Option<String>,
     pub to: Option<String>,
@@ -55,11 +52,7 @@ pub struct TxnBuilder {
 
 impl TxnBuilder {
     pub fn new() -> Self {
-        Self {
-            from: None,
-            to: None,
-            value: FloatValue::default(),
-        }
+        Self::default()
     }
 
     pub fn set_from(&mut self, from: impl Into<String>) -> &mut Self {
