@@ -3,23 +3,12 @@ use std::{collections::HashSet, default::Default, time::SystemTime};
 
 use crate::txn::{publishable_txn::PublishableTransaction, Txn};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct BlockHeaders {
     prev_block_hash: String,
     next_block_hash: Option<String>,
     merkle_root_hash: Option<String>,
     block_size: usize,
-}
-
-impl Default for BlockHeaders {
-    fn default() -> Self {
-        Self {
-            prev_block_hash: String::new(),
-            next_block_hash: None,
-            merkle_root_hash: None,
-            block_size: 0,
-        }
-    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]

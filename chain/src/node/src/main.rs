@@ -2,7 +2,7 @@ extern crate log;
 extern crate pretty_env_logger;
 extern crate ws;
 
-use dotenv;
+
 
 use ws::listen;
 

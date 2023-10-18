@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
 use std::{hash::Hash, time::SystemTime};
 
-#[derive(Serialize, Deserialize, Hash, Eq, Clone, Debug)]
+#[derive(Serialize, Deserialize, Hash, Clone, Debug)]
 pub struct Txn {
     pub hash: Option<String>,
     pub from: String,
@@ -17,9 +17,21 @@ pub struct Txn {
     pub timestamp: SystemTime,
 }
 
+impl PartialEq for Txn {
+    fn eq(&self, other: &Self) -> bool {
+        self.hash == other.hash
+    }
+
+    fn ne(&self, other: &Self) -> bool {
+        self.hash != other.hash
+    }
+}
+
+impl Eq for Txn {}
+
 impl Txn {
     pub fn compute_hash(&self) -> String {
-        let struct_bytes = serde_json::to_vec(&self).unwrap();
+        let struct_bytes: Vec<u8> = serde_json::to_vec(&self).unwrap();
         let mut hasher = Keccak256::new();
         hasher.update(struct_bytes);
         let result = hasher.finalize();
