@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
 use std::{hash::Hash, time::SystemTime};
 
-#[derive(Serialize, Deserialize, Hash, Clone, Debug)]
+#[derive(Serialize, Deserialize, Hash, Eq, Clone, Debug)]
 pub struct Txn {
     pub hash: Option<String>,
     pub from: String,

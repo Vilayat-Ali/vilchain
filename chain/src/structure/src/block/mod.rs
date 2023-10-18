@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use std::{default::Default, time::SystemTime};
+use std::{collections::HashSet, default::Default, time::SystemTime};
 
 use crate::txn::{publishable_txn::PublishableTransaction, Txn};
 
@@ -28,7 +28,7 @@ where
     Txn: PublishableTransaction + Serialize + Deserialize<'static> + std::fmt::Debug,
 {
     headers: BlockHeaders,
-    txns: Vec<Txn>,
+    txns: HashSet<Txn>,
     timestamp: SystemTime,
 }
 
@@ -36,7 +36,7 @@ impl Default for Block {
     fn default() -> Self {
         Self {
             headers: BlockHeaders::default(),
-            txns: Vec::new(),
+            txns: HashSet::new(),
             timestamp: SystemTime::now(),
         }
     }
