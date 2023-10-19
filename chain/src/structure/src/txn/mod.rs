@@ -5,7 +5,7 @@ use super::txn::non_publishable_txn::NonPublishableTransaction;
 use crate::FloatValue;
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
-use std::{hash::Hash, time::SystemTime};
+use std::{hash::Hash, ops::Deref, time::SystemTime};
 
 #[derive(Serialize, Deserialize, Hash, Clone, Debug)]
 pub struct Txn {
@@ -24,6 +24,14 @@ impl PartialEq for Txn {
 }
 
 impl Eq for Txn {}
+
+impl Deref for Txn {
+    type Target = Option<String>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.hash
+    }
+}
 
 impl Txn {
     pub fn compute_hash(&self) -> String {
