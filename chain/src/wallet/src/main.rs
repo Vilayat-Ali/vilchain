@@ -1,11 +1,14 @@
 use std::io::Write;
-use wallet::cred::generate_wallet_creds;
-use wallet::filer::{FileType, Filer};
 
-fn main() {
-    let add: wallet::cred::WalletCreds = generate_wallet_creds();
+use wallet::{
+    cred::{generate_wallet_creds, WalletCreds},
+    filer::*,
+};
 
-    let mut f = Filer::gen_file(FileType::Log, "wallet-seed.json").unwrap();
-    let b = serde_json::to_string_pretty(&add).unwrap();
-    let _ = f.write(b.as_bytes());
+#[tokio::main]
+async fn main() -> Result<(), std::io::Error> {
+    let mut f = Filer::gen_file(FileType::Log, "log.toml")?;
+    let creds: WalletCreds = generate_wallet_creds();
+    f.write_all(serde_json::to_string_pretty(&creds)?.as_bytes())?;
+    Ok(())
 }
