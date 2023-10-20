@@ -30,3 +30,19 @@ impl Default for Block {
         }
     }
 }
+
+impl std::ops::Deref for Block {
+    type Target = Option<String>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.headers.merkle_root_hash
+    }
+}
+
+impl std::iter::Iterator for Block {
+    type Item = Txn;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        todo!()
+    }
+}

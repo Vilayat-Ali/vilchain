@@ -78,9 +78,9 @@ impl TxnBuilder {
         self
     }
 
-    pub fn build<'a>(&'a mut self) -> Result<Txn, String>
+    pub fn build(&mut self) -> Result<Txn, String>
     where
-        Txn: NonPublishableTransaction + Serialize + Deserialize<'a> + std::fmt::Debug,
+        Txn: NonPublishableTransaction + Serialize + Deserialize<'static> + std::fmt::Debug,
     {
         let txn = Txn {
             hash: None,
