@@ -1,13 +1,9 @@
-import Breadcrumb from '../../components/Breadcrumb';
-import CheckboxFive from '../../components/CheckboxFive';
-import CheckboxFour from '../../components/CheckboxFour';
-import CheckboxOne from '../../components/CheckboxOne';
-import CheckboxThree from '../../components/CheckboxThree';
-import CheckboxTwo from '../../components/CheckboxTwo';
-import SwitcherFour from '../../components/SwitcherFour';
-import SwitcherOne from '../../components/SwitcherOne';
-import SwitcherThree from '../../components/SwitcherThree';
-import SwitcherTwo from '../../components/SwitcherTwo';
+import Breadcrumb from "../../components/Breadcrumb";
+import CheckboxFive from "../../components/CheckboxFive";
+import CheckboxFour from "../../components/CheckboxFour";
+import CheckboxOne from "../../components/CheckboxOne";
+import CheckboxThree from "../../components/CheckboxThree";
+import CheckboxTwo from "../../components/CheckboxTwo";
 
 const FormElements = () => {
   return (
@@ -57,21 +53,6 @@ const FormElements = () => {
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                 />
               </div>
-            </div>
-          </div>
-
-          {/* <!-- Toggle switch input --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-              <h3 className="font-medium text-black dark:text-white">
-                Toggle switch input
-              </h3>
-            </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
-              <SwitcherOne />
-              <SwitcherTwo />
-              <SwitcherThree />
-              <SwitcherFour />
             </div>
           </div>
 
