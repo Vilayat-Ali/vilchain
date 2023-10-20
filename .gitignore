@@ -5,3 +5,4 @@
 */**/.env
 */**/bun.lockb
 **/*/.next
+**/*/data/*
