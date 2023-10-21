@@ -8,10 +8,10 @@ const BLOCK_TXN_SIZE: usize = 15;
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct BlockHeaders {
-    prev_block_hash: String,
+    prev_block_hash: Option<String>,
     next_block_hash: Option<String>,
     merkle_root_hash: Option<String>,
-    block_size: usize,
+    block_size: usize, // size in bytes
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -71,6 +71,7 @@ impl Block {
             // we are 100% sure that we will be having a hash as the txn struct implements PublishableTransaction trait
             self.txns.insert(txn.hash.clone().unwrap(), txn);
             self.headers.merkle_root_hash = Some(self.compute_merkle_root_hash()); // updating merkle root hash
+            self.headers.block_size = std::mem::size_of_val(&self);
             Ok(())
         } else {
             Err("Txn Limit reached")
@@ -105,5 +106,40 @@ impl std::iter::Iterator for Block {
 
     fn next(&mut self) -> Option<Self::Item> {
         todo!()
+    }
+}
+
+pub trait ChainBlock {
+    fn get_size_in_bytes(&self) -> usize;
+    fn is_genesis_block(&self) -> bool;
+    fn is_txn_lim_reached(&self) -> bool;
+    fn block_capacity_left(&self) -> usize;
+    fn get_txn<'a>(&self, txn_hash: &'a str) -> Option<&Txn>
+    where
+        Txn: Serialize + Deserialize<'static> + PublishableTransaction;
+}
+
+impl ChainBlock for Block {
+    fn get_size_in_bytes(&self) -> usize {
+        self.headers.block_size
+    }
+
+    fn is_genesis_block(&self) -> bool {
+        self.headers.prev_block_hash.is_none()
+    }
+
+    fn is_txn_lim_reached(&self) -> bool {
+        self.txns.len() == BLOCK_TXN_SIZE
+    }
+
+    fn block_capacity_left(&self) -> usize {
+        BLOCK_TXN_SIZE - self.txns.len()
+    }
+
+    fn get_txn<'a>(&self, txn_hash: &'a str) -> Option<&Txn>
+    where
+        Txn: Serialize + Deserialize<'static> + PublishableTransaction,
+    {
+        self.txns.get(txn_hash)
     }
 }
