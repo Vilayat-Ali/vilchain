@@ -104,5 +104,6 @@ fn main() {
 
         b.insert_txn(txn.publish()).unwrap();
     }
+    println!("Total txn count on block : {}", b.get_txn_count());
     println!("{}", b.compute_merkle_root_hash());
 }

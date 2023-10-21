@@ -32,7 +32,7 @@ impl Block {
             false => hash_list.len() / 2,
         });
 
-        for idx in 0..hash_list.len() {
+        for idx in (0..hash_list.len()).step_by(2) {
             stack.push(hash::compute_hash(format!(
                 "{}{}",
                 hash_list[idx],

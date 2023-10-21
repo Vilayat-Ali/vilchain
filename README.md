@@ -1,8 +1,29 @@
-# VilChain: A Blockchain from the Mind of a Jerk! 😈
+# VilChain: Unleashing Techno-Chaos with Rusty Rebellion
 
-Welcome to VilChain, a portable and light-weight blockchain-as-a-infrastructure (BAI) that emerged from the brilliant mind (and maybe a touch of jerkiness) of its author, [Vilayat](https://www.linkedin.com/in/syed-vilayat-ali-rizvi/). VilChain is designed to be your go-to choice for a miniature blockchain infrastructure that packs a punch!
+Welcome to VilChain, where chaos meets code, and disruption is an art form. 🚀
+
+VilChain is a  portable and light-weight blockchain-as-a-infrastructure (BAI) that emerged from the brilliant mind (and maybe a touch of jerkiness) of its author, [Vilayat](https://www.linkedin.com/in/syed-vilayat-ali-rizvi/). VilChain is designed to be your go-to choice for a miniature blockchain infrastructure that packs a punch!
 
 VilChain was created with an evil intention in mind, that is, to disrupt the system and give power to people. It's a technological rebellion against centralized systems and also against problems that follows it.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Evil Intentions](#evil-intentions)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Overview
+
+VilChain is not your average blockchain—it's a rebellious piece of code crafted in the fiery depths of Rust. Our mission? To disrupt centralized systems and empower the masses with the ultimate technological rebellion.
+
+## Evil Intentions
+
+VilChain was conceived with an evil glint in our eyes, aimed at dismantling the status quo. It's not just a blockchain; it's a declaration of war against centralized systems and the myriad of issues that trail behind them.
+
 
 ## Features 🚀
 
