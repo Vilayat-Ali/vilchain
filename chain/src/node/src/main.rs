@@ -94,7 +94,7 @@ use structure::{
 
 fn main() {
     let mut b: Block = Block::default();
-    for x in 0..9 {
+    for x in 0..15 {
         let mut txn = TxnBuilder::new()
             .set_from(x.to_string().repeat(5))
             .set_to(x.to_string().repeat(5))
@@ -103,8 +103,9 @@ fn main() {
             .unwrap();
 
         b.insert_txn(txn.publish()).unwrap();
+
+        println!("{}", b.compute_merkle_root_hash());
+
+        std::thread::sleep(std::time::Duration::from_secs(2));
     }
-    println!("Total txn count on block : {}", b.get_txn_count());
-    println!("{}", b.compute_merkle_root_hash());
-    println!("/n {:#?}", b);
 }

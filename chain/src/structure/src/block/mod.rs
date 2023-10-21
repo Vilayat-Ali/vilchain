@@ -70,7 +70,7 @@ impl Block {
         if self.txns.len() < BLOCK_TXN_SIZE {
             // we are 100% sure that we will be having a hash as the txn struct implements PublishableTransaction trait
             self.txns.insert(txn.hash.clone().unwrap(), txn);
-            self.compute_merkle_root_hash(); // updating merkle root hash
+            self.headers.merkle_root_hash = Some(self.compute_merkle_root_hash()); // updating merkle root hash
             Ok(())
         } else {
             Err("Txn Limit reached")
