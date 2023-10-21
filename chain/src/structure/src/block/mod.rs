@@ -33,11 +33,13 @@ impl Block {
         });
 
         for idx in (0..hash_list.len()).step_by(2) {
-            stack.push(hash::compute_hash(format!(
-                "{}{}",
-                hash_list[idx],
-                hash_list[idx + 1]
-            )));
+            if !is_txn_count_odd {
+                stack.push(hash::compute_hash(format!(
+                    "{}{}",
+                    hash_list[idx],
+                    hash_list[idx + 1]
+                )));
+            }
         }
 
         if let Some(hash_string) = hash_list.last() {
