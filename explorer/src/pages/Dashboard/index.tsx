@@ -2,7 +2,6 @@
 import Card from "../../components/Card";
 import ChartOne from "../../components/ChartOne.js";
 import ChartTwo from "../../components/ChartTwo.js";
-import ChatCard from "../../components/ChatCard.js";
 import TableOne from "../../components/Table.js";
 
 const ECommerce = () => {
@@ -30,7 +29,6 @@ const ECommerce = () => {
             ]}
           />
         </div>
-        <ChatCard />
       </div>
     </>
   );
