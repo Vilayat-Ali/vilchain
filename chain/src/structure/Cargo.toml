@@ -9,3 +9,4 @@ edition = "2021"
 serde = { workspace = true }
 serde_json = { workspace = true }
 sha3 = { workspace = true }
+utils = { path = "../utils" }
