@@ -2,9 +2,9 @@ use bip39::Mnemonic;
 use secp256k1::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct WalletKeys {
-    pub public_key: String,
+    pub public_key: Vec<u8>,
     pub private_key: [u8; 32],
 }
 
@@ -34,7 +34,7 @@ pub fn generate_wallet_creds() -> Result<WalletCreds, bip39::Error> {
         address: format!("0x{}", public_key.to_string()),
         seeds: seed_word_vec,
         keys: WalletKeys {
-            public_key: public_key.to_string(),
+            public_key: public_key.serialize().to_vec(),
             private_key: secret_key.secret_bytes(),
         },
     })

@@ -5,7 +5,7 @@ use super::txn::non_publishable_txn::NonPublishableTransaction;
 use crate::FloatValue;
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256};
-use std::{hash::Hash, ops::Deref, time::SystemTime};
+use std::{fmt, hash::Hash, ops::Deref, time::SystemTime};
 
 #[derive(Serialize, Deserialize, Hash, Clone, Debug)]
 pub struct Txn {
@@ -15,6 +15,13 @@ pub struct Txn {
     pub value: FloatValue,
     pub fee: Option<FloatValue>,
     pub timestamp: SystemTime,
+}
+
+impl fmt::Pointer for Txn {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let ptr: *const Txn = self as *const Self;
+        fmt::Pointer::fmt(&ptr, f)
+    }
 }
 
 impl PartialEq for Txn {

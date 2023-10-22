@@ -33,6 +33,7 @@ where
     T: Into<String>,
 {
     write_to_console(BANNER_ART, Some(Color::Red)).unwrap();
+    write_to_console("", Some(Color::Blue)).unwrap();
     if let Some(vec) = table_vec {
         print_table(vec);
     }
