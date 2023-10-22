@@ -7,12 +7,9 @@ use wallet::{
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
-    if let Ok(creds) = generate_wallet_creds() {
-        let mut f = Filer::gen_file(FileType::Cred, "wallet.json")?;
-        f.write_all(serde_json::to_string_pretty(&creds)?.as_bytes())?;
-    } else {
-        println!("fucl");
-    }
+    let creds = generate_wallet_creds().unwrap();
+    let mut f = Filer::gen_file(FileType::Cred, "wallet.json")?;
+    f.write_all(serde_json::to_string_pretty(&creds)?.as_bytes())?;
 
     Ok(())
 }

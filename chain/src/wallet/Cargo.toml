@@ -11,8 +11,9 @@ tokio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 sha3 = { workspace = true }
-random_word = { version = "0.4.1", features = ["en"] }
+bip39 = { workspace = true }
 ratatui = "0.23.0"
+secp256k1 = { version = "0.28.0", features = ["rand-std", "serde"] }
 crossterm = "0.27.0"
 
 structure = { path = "../structure" }
