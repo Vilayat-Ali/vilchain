@@ -5,7 +5,7 @@ use crossterm::{
 };
 use ratatui::{
     prelude::{CrosstermBackend, Stylize, Terminal},
-    widgets::Paragraph,
+    widgets::{Block, Borders, Paragraph},
 };
 use std::io::{stderr, Result};
 
@@ -24,7 +24,12 @@ async fn main() -> Result<()> {
             frame.render_widget(
                 Paragraph::new("Hello Ratatui! (press 'q' to quit)")
                     .white()
-                    .on_blue(),
+                    .block(
+                        Block::default()
+                            .title("Title")
+                            .borders(Borders::ALL)
+                            .border_type(ratatui::widgets::BorderType::Rounded),
+                    ),
                 area,
             );
         })?;

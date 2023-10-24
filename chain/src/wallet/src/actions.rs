@@ -1,5 +1,5 @@
 use secp256k1::{
-    ecdsa::{self, Signature},
+    ecdsa::{self},
     All, Error, Message, PublicKey, Secp256k1, SecretKey,
 };
 use sha3::{Digest, Sha3_256};
