@@ -26,6 +26,14 @@ pub struct VilChain {
     pub blocks: Box<Block>,
 }
 
+impl std::iter::Iterator for VilChain {
+    type Item = Option<Block>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        todo!()
+    }
+}
+
 impl VilChain {
     pub fn new() -> Self {
         Self {
@@ -39,7 +47,7 @@ pub trait Chain {
     fn total_size_in_bytes(&self) -> usize;
     fn search_txn(&self, txn_hash: impl Into<String>) -> Option<&Txn>;
     fn search_block(&self, block_hash: impl Into<String>) -> Option<&Block>;
-    fn get_genesis_block(&self) -> Option<&Block>;
+    fn get_genesis_block(&self) -> &Block;
 }
 
 impl Chain for VilChain {
@@ -55,7 +63,7 @@ impl Chain for VilChain {
         todo!()
     }
 
-    fn get_genesis_block(&self) -> Option<&Block> {
-        todo!()
+    fn get_genesis_block(&self) -> &Block {
+        &self.blocks
     }
 }

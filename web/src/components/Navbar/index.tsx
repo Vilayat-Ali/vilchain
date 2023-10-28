@@ -7,7 +7,7 @@ import { MdMenu, MdMenuOpen } from "react-icons/md";
 const Navbar = () => {
   return (
     <div>
-      <nav className="">
+      <nav className="w-[100vw] bg-red-800">
         {/* Logo */}
         <div className=""></div>
         {/* Logo */}
