@@ -31,8 +31,7 @@ async fn main() -> Result<(), io::Error> {
     let env_var: ENV = get_envs();
     let node_id: String = Uuid::new_v4().to_string();
     let addr: String = format!(
-        "{}:{}",
-        env_var.addr,
+        "localhost:{}",
         env::args().nth(1).unwrap_or_else(|| "8000".to_string())
     );
 

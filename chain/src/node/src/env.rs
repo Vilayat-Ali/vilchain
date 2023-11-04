@@ -6,7 +6,6 @@ use envy::from_env;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ENV {
     pub rust_log: String,
-    pub addr: String,
 }
 
 pub fn get_envs() -> ENV {
