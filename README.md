@@ -66,6 +66,8 @@ Docker, the ultimate code sorcerer. Wraps your stuff in sleek containers, VIP st
 
 ## Getting Started 🚀
 
+### Direct run 
+
 To get started with VilChain, follow these simple steps:
 
 1. Clone the repository:
@@ -86,6 +88,18 @@ $ cd explorer
 $ npm install / yarn install 
 ```
 
+### Docker Image
+
+1. Run `docker build -t vilchain-node`
+
+2. Run docker image and exposing the port.
+   `docker run -p 8000:8000 vilchain-node:latest`
+
+3. Run `docker ps -a` and copy `<container/image id>` of docker image of vilchain node.
+
+4. Run `docker logs <container id>` to get logs from the instance.
+
+5. Or, run `docker exec -it <container id> /bin/bash` to get into bash of the container. Run `cd /vilchain` to get into *vilchain* directory.
 
 That's it! You're now ready to experience the power of VilChain.
 
