@@ -60,7 +60,9 @@ TypeScript, the virtuoso of web development, elevates JavaScript to a new echelo
 
 C, the grandmaster of programming languages, stands as the bedrock of computing excellence. Unyielding in its simplicity yet unparalleled in its power, C lays the foundation for the most robust and efficient software systems. A language that has withstood the test of time, C is the maestro behind operating systems, embedded systems, and everything in between. With a syntax that speaks directly to the machine, C is the language of choice for those who seek unparalleled control and performance. In the world of programming, C is not just a language; it's a timeless masterpiece. 🌐⚙️
 
-### [Docker]() - The Better Way of Launching Projects
+### [Docker](https://www.docker.com/) - The Better Way of Launching Projects
+
+Docker, the ultimate code sorcerer. Wraps your stuff in sleek containers, VIP style. No more "It works on my machine." Consistent flex, whether local or on a baller server. Efficient AF, sharing resources like a boss. Sustainability guru, no waste, all hustle. Docker's your app's travel agent—no stress, just pure coding vibes. 🚀✨
 
 ## Getting Started 🚀
 
