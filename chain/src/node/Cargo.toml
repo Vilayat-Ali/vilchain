@@ -23,3 +23,4 @@ utils = { path = "../utils" }
 futures-channel = "0.3.28"
 futures-util = "0.3.28"
 uuid = { version = "1.5.0", features = ["v4"] }
+rayon = "1.8.0"
