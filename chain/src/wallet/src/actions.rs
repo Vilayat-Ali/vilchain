@@ -24,8 +24,8 @@ pub fn verify_message(message: &[u8], signature: &[u8], public_key: &[u8]) -> Re
     let result = hasher.finalize();
 
     let msg: Message = Message::from_digest_slice(result.as_ref())?;
-    let sig = ecdsa::Signature::from_compact(&signature)?;
-    let pubkey = PublicKey::from_slice(&public_key)?;
+    let sig = ecdsa::Signature::from_compact(signature)?;
+    let pubkey = PublicKey::from_slice(public_key)?;
 
     Ok(secp.verify_ecdsa(&msg, &sig, &pubkey).is_ok())
 }

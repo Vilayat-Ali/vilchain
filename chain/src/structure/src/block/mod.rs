@@ -114,7 +114,7 @@ pub trait ChainBlock {
     fn is_genesis_block(&self) -> bool;
     fn is_txn_lim_reached(&self) -> bool;
     fn block_capacity_left(&self) -> usize;
-    fn get_txn<'a>(&self, txn_hash: &'a str) -> Option<&Txn>
+    fn get_txn(&self, txn_hash: &str) -> Option<&Txn>
     where
         Txn: Serialize + Deserialize<'static> + PublishableTransaction;
 }
@@ -136,7 +136,7 @@ impl ChainBlock for Block {
         BLOCK_TXN_SIZE - self.txns.len()
     }
 
-    fn get_txn<'a>(&self, txn_hash: &'a str) -> Option<&Txn>
+    fn get_txn(&self, txn_hash: &str) -> Option<&Txn>
     where
         Txn: Serialize + Deserialize<'static> + PublishableTransaction,
     {

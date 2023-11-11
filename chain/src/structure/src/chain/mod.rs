@@ -38,7 +38,7 @@ impl VilChain {
     pub fn new() -> Self {
         Self {
             block_count: 1,
-            blocks: Box::new(Block::default()),
+            blocks: Box::<Block>::default(),
         }
     }
 }
@@ -55,11 +55,11 @@ impl Chain for VilChain {
         mem::size_of_val(&self)
     }
 
-    fn search_txn(&self, txn_hash: impl Into<String>) -> Option<&Txn> {
+    fn search_txn(&self, _txn_hash: impl Into<String>) -> Option<&Txn> {
         todo!()
     }
 
-    fn search_block(&self, block_hash: impl Into<String>) -> Option<&Block> {
+    fn search_block(&self, _block_hash: impl Into<String>) -> Option<&Block> {
         todo!()
     }
 

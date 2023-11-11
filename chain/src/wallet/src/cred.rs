@@ -26,12 +26,12 @@ pub fn generate_wallet_creds() -> Result<WalletCreds, bip39::Error> {
     // A Secret Recovery Phrase, mnemonic phrase, or Seed Phrase is a set of typically either 12 or 24 words, which can be used to derive an infinite number of accounts. Often times these phrases are used by cryptocurrency hardware wallets, to be written down on a piece of paper by the user to safely back up the users' funds.
     let seed_word_vec: Vec<String> = Mnemonic::from_entropy(secret_key.secret_bytes().as_slice())?
         .to_string()
-        .split(" ")
+        .split(' ')
         .map(|x| x.to_owned())
         .collect::<Vec<String>>();
 
     Ok(WalletCreds {
-        address: format!("0x{}", public_key.to_string()),
+        address: format!("0x{}", public_key),
         seeds: seed_word_vec,
         keys: WalletKeys {
             public_key: public_key.serialize().to_vec(),

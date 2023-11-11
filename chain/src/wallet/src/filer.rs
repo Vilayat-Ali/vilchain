@@ -1,3 +1,5 @@
+#![allow(unused_assignments)]
+
 use std::{fs, io, path::Path};
 
 pub enum FileType {

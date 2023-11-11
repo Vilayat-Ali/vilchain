@@ -67,7 +67,7 @@ pub fn print_table<T: Into<String>>(table_data: Vec<Vec<T>>) {
         for line_size in req_size_arr.iter() {
             print!("+{}", "-".repeat(*line_size));
         }
-        print!("+\n");
+        println!("+");
     };
 
     // print table to console
@@ -83,8 +83,8 @@ pub fn print_table<T: Into<String>>(table_data: Vec<Vec<T>>) {
                 " ".repeat(spacing_count),
             );
         }
-        print!("|\n");
+        println!("|");
     }
     draw_row_line();
-    println!("");
+    println!();
 }
