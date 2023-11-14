@@ -2,6 +2,8 @@
 import type { IconType } from "react-icons";
 import { MdHomeFilled } from "react-icons/md";
 import { BsDiscord, BsGithub, BsMailbox } from "react-icons/bs";
+import { SiGoogledocs } from "react-icons/si";
+import { FaDev } from "react-icons/fa";
 
 export interface MenuItem {
   title: string;
@@ -16,24 +18,14 @@ const MenuList: MenuItem[] = [
     icon: MdHomeFilled,
   },
   {
-    title: "Home",
-    href: "/a",
-    icon: MdHomeFilled,
+    title: "Docs",
+    href: "/docs",
+    icon: SiGoogledocs,
   },
   {
-    title: "Home",
-    href: "/s",
-    icon: MdHomeFilled,
-  },
-  {
-    title: "Home",
-    href: "/d",
-    icon: MdHomeFilled,
-  },
-  {
-    title: "Home",
-    href: "/f",
-    icon: MdHomeFilled,
+    title: "Blogs",
+    href: "/blogs",
+    icon: FaDev,
   },
   {
     title: "Home",
@@ -41,7 +33,7 @@ const MenuList: MenuItem[] = [
     icon: BsDiscord,
   },
   {
-    title: "Home",
+    title: "Mail",
     href: "mailto://vilayatcodemysite@gmail.com",
     icon: BsMailbox,
   },

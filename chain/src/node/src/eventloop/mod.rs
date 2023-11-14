@@ -20,4 +20,8 @@ impl EventLoop {
             None => None,
         }
     }
+
+    pub fn poll(&mut self) -> Result<(), String> {
+        Ok(())
+    }
 }
