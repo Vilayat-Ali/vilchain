@@ -26,7 +26,7 @@ const AppMenuBar = () => {
   }, [currentHoveredMenuItem]);
 
   return (
-    <Card className="absolute h-[33.5vh] md:h-full overflow-scroll scroll-m-0 flex flex-col md:flex-row transition-transform top-[5vh] right-[2vw] md:top-0 md:right-0 md:bottom-[5vh] md:left-1/2 md:transform md:-translate-x-1/2 z-50 p-2 md:p-4 shadow rounded-full">
+    <Card className="absolute h-[33.3vh] md:h-fit md:w-fit overflow-scroll scroll-m-0 flex flex-col md:flex-row transition-transform top-[5vh] right-[2vw] md:top-[90%] md:right-0 md:left-1/2 md:transform md:-translate-x-1/2 z-50 p-2 md:p-4 shadow rounded-full">
       {MenuList.map((item: MenuItem, index: number) => {
         const leftItemIdx: number | undefined =
           currentHoveredMenuItem === 0
