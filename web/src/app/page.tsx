@@ -1,11 +1,13 @@
+// lib
+
 // layout
-import WebsiteLayout from "./(landing)/layout";
+import WebsiteLayout from "./(website)/layout";
 
 export default function Home() {
   return (
     <WebsiteLayout>
-      <main className="">
-        <h1>Hello World</h1>
+      <main>
+        <h1>asd</h1>
       </main>
     </WebsiteLayout>
   );

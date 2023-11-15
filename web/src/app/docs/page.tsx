@@ -1,7 +1,12 @@
-import React from "react";
+// layout
+import DocLayout from "./layout";
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <DocLayout>
+      <h1>hello world</h1>
+    </DocLayout>
+  );
 };
 
 export default page;
