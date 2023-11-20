@@ -74,11 +74,11 @@ pub fn print_table<T: Into<String>>(table_data: Vec<Vec<T>>) {
 
     for cell_no in 0..table_data[0].len() {
         for row_no in 0..table_data.len() {
-            let req_col_space = table_data[row_no][cell_no].len() + 2;
+            let req_col_space = table_data[row_no][cell_no].len();
             let space_diff: usize = col_sizes[cell_no] - req_col_space;
             let spacing_count: (usize, usize) = {
                 match (col_sizes[cell_no] == req_col_space, space_diff % 2 == 0) {
-                    (true, _) => (0, 0),
+                    (true, _) => (1, 1),
                     (false, true) => (space_diff / 2, space_diff / 2),
                     (false, false) => (space_diff / 2 + 1, (space_diff / 2)),
                 }
@@ -94,7 +94,7 @@ pub fn print_table<T: Into<String>>(table_data: Vec<Vec<T>>) {
 
     for row_no in 0..table_data.len() {
         draw_hr_line();
-        println!("|{}", table_data[row_no].join("|"));
+        println!("|{}|", table_data[row_no].join("|"));
     }
     draw_hr_line();
 }
