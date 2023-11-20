@@ -43,9 +43,58 @@ where
 }
 
 pub fn print_table<T: Into<String>>(table_data: Vec<Vec<T>>) {
-    let table_data: Vec<Vec<String>> = table_data
+    let mut table_data: Vec<Vec<String>> = table_data
         .into_iter()
         .map(|v| v.into_iter().map(|s| s.into()).collect::<Vec<String>>())
         .collect::<Vec<Vec<String>>>();
-    todo!()
+
+    let col_sizes = {
+        let mut sizes: Vec<usize> = Vec::new();
+        for cell_no in 0..table_data[0].len() {
+            let mut biggest_size: usize = 0;
+            for row_no in 0..table_data.len() {
+                let req_size: usize = table_data[row_no][cell_no].len() + 2;
+                if req_size > biggest_size {
+                    biggest_size = req_size;
+                }
+            }
+            sizes.push(biggest_size);
+        }
+        sizes
+    };
+
+    let draw_hr_line = || {
+        let mut line: String = String::from("+");
+        col_sizes.iter().for_each(|size| {
+            line.push_str("-".repeat(*size).as_str());
+            line.push('+');
+        });
+        println!("{}", line);
+    };
+
+    for cell_no in 0..table_data[0].len() {
+        for row_no in 0..table_data.len() {
+            let req_col_space = table_data[row_no][cell_no].len() + 2;
+            let space_diff: usize = col_sizes[cell_no] - req_col_space;
+            let spacing_count: (usize, usize) = {
+                match (col_sizes[cell_no] == req_col_space, space_diff % 2 == 0) {
+                    (true, _) => (0, 0),
+                    (false, true) => (space_diff / 2, space_diff / 2),
+                    (false, false) => (space_diff / 2 + 1, (space_diff / 2)),
+                }
+            };
+            table_data[row_no][cell_no] = format!(
+                "{}{}{}",
+                " ".repeat(spacing_count.0),
+                table_data[row_no][cell_no],
+                " ".repeat(spacing_count.1)
+            )
+        }
+    }
+
+    for row_no in 0..table_data.len() {
+        draw_hr_line();
+        println!("|{}", table_data[row_no].join("|"));
+    }
+    draw_hr_line();
 }
