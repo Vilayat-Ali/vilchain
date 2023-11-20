@@ -3,7 +3,7 @@
 use std::{fs, io, path::Path};
 
 pub enum FileType {
-    Cred,
+    Wallet(String),
     Config,
     Log,
 }
@@ -19,12 +19,17 @@ impl Filer {
         Ok(())
     }
 
-    pub fn gen_file(file_type: FileType, filename: &str) -> Result<fs::File, io::Error> {
+    pub fn gen_file(
+        &self,
+        file_type: FileType,
+        filename: &str,
+        contents: String,
+    ) -> Result<(), io::Error> {
         let mut file_path: String = String::new();
         match file_type {
-            FileType::Cred => {
-                Self.gen_dir("data/secret")?;
-                file_path = format!("data/secret/{}", filename);
+            FileType::Wallet(address) => {
+                Self.gen_dir(format!("data/wallet/{address}"))?;
+                file_path = format!("data/wallet/{address}/{}", filename);
             }
             FileType::Config => {
                 Self.gen_dir("data/config")?;
@@ -35,7 +40,7 @@ impl Filer {
                 file_path = format!("data/log/{}", filename);
             }
         }
-        let f: fs::File = fs::File::create(file_path)?;
-        Ok(f)
+        fs::write(file_path, contents)?;
+        Ok(())
     }
 }

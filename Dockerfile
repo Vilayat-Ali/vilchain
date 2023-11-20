@@ -44,8 +44,6 @@ RUN rustc --version && cargo --version
 # --- Setting up Project and running it in the docker image ---
 COPY ./chain .
 
-ENV RUST_LOG="trace"
-
 RUN cargo build --release
 
 RUN echo "$NODE_PORT"

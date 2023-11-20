@@ -1,5 +1,4 @@
 use std::{
-    cell,
     io::{Error, Write},
 };
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};

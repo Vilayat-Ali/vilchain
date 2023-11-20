@@ -1,6 +1,9 @@
 use bip39::Mnemonic;
 use secp256k1::*;
 use serde::{Deserialize, Serialize};
+use serde_json;
+
+use crate::filer::{FileType, Filer};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WalletKeys {
@@ -15,7 +18,7 @@ pub struct WalletCreds {
     pub keys: WalletKeys,
 }
 
-pub fn generate_wallet_creds() -> Result<WalletCreds, bip39::Error> {
+pub fn generate_wallet_creds() -> Result<(), Box<dyn std::error::Error>> {
     let secp: Secp256k1<All> = Secp256k1::new();
 
     let (secret_key, public_key): (SecretKey, PublicKey) =
@@ -28,14 +31,27 @@ pub fn generate_wallet_creds() -> Result<WalletCreds, bip39::Error> {
         .to_string()
         .split(' ')
         .map(|x| x.to_owned())
-        .collect::<Vec<String>>();
+        .collect();
 
-    Ok(WalletCreds {
+    let contents: String = serde_json::to_string_pretty(&WalletCreds {
         address: format!("0x{}", public_key),
         seeds: seed_word_vec,
         keys: WalletKeys {
             public_key: public_key.serialize().to_vec(),
             private_key: secret_key.secret_bytes(),
         },
-    })
+    })?;
+
+    let filer = Filer;
+    filer.gen_file(
+        FileType::Wallet(format!("0x{public_key}")),
+        "wallet.json",
+        contents,
+    )?;
+
+    Ok(())
+}
+
+pub fn generate_wallet_spend_history(_address: String) -> Result<(), Box<dyn std::error::Error>> {
+    todo!()
 }

@@ -5,6 +5,12 @@ pub struct EventLoop {
     pub tasks: Vec<Txn>,
 }
 
+impl Default for EventLoop {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl EventLoop {
     pub fn new() -> Self {
         Self { tasks: Vec::new() }

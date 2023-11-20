@@ -5,17 +5,15 @@ use crossterm::{
 };
 use ratatui::{
     prelude::{CrosstermBackend, Stylize, Terminal},
-    widgets::{Block, Borders, Paragraph},
+    widgets::Paragraph,
 };
-use std::io::{stderr, Result};
+use std::io::{stdout, Result};
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    stderr().execute(EnterAlternateScreen)?;
+    stdout().execute(EnterAlternateScreen)?;
     enable_raw_mode()?;
-
-    let mut terminal: Terminal<CrosstermBackend<std::io::Stderr>> =
-        Terminal::new(CrosstermBackend::new(stderr()))?;
+    let mut terminal = Terminal::new(CrosstermBackend::new(stdout()))?;
     terminal.clear()?;
 
     loop {
@@ -24,17 +22,13 @@ async fn main() -> Result<()> {
             frame.render_widget(
                 Paragraph::new("Hello Ratatui! (press 'q' to quit)")
                     .white()
-                    .block(
-                        Block::default()
-                            .title("Title")
-                            .borders(Borders::ALL)
-                            .border_type(ratatui::widgets::BorderType::Rounded),
-                    ),
+                    .on_blue(),
                 area,
             );
         })?;
 
-        if event::poll(std::time::Duration::from_millis(100))? {
+        // handling events
+        if event::poll(std::time::Duration::from_millis(16))? {
             if let event::Event::Key(key) = event::read()? {
                 if key.kind == KeyEventKind::Press && key.code == KeyCode::Char('q') {
                     break;
@@ -43,7 +37,7 @@ async fn main() -> Result<()> {
         }
     }
 
-    stderr().execute(LeaveAlternateScreen)?;
+    stdout().execute(LeaveAlternateScreen)?;
     disable_raw_mode()?;
     Ok(())
 }

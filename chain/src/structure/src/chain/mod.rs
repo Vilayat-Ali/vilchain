@@ -34,6 +34,12 @@ impl std::iter::Iterator for VilChain {
     }
 }
 
+impl Default for VilChain {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl VilChain {
     pub fn new() -> Self {
         Self {
