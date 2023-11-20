@@ -1,43 +1,96 @@
+use anyhow::Result;
 use crossterm::{
-    event::{self, KeyCode, KeyEventKind},
+    event::{self, Event::Key, KeyCode::Char},
+    execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
-    ExecutableCommand,
 };
 use ratatui::{
-    prelude::{CrosstermBackend, Stylize, Terminal},
+    prelude::{CrosstermBackend, Terminal},
     widgets::Paragraph,
+    Frame,
 };
-use std::io::{stdout, Result};
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    stdout().execute(EnterAlternateScreen)?;
+fn startup() -> Result<()> {
     enable_raw_mode()?;
-    let mut terminal = Terminal::new(CrosstermBackend::new(stdout()))?;
-    terminal.clear()?;
+    execute!(std::io::stderr(), EnterAlternateScreen)?;
+    Ok(())
+}
 
-    loop {
-        terminal.draw(|frame| {
-            let area = frame.size();
-            frame.render_widget(
-                Paragraph::new("Hello Ratatui! (press 'q' to quit)")
-                    .white()
-                    .on_blue(),
-                area,
-            );
-        })?;
+fn shutdown() -> Result<()> {
+    execute!(std::io::stderr(), LeaveAlternateScreen)?;
+    disable_raw_mode()?;
+    Ok(())
+}
 
-        // handling events
-        if event::poll(std::time::Duration::from_millis(16))? {
-            if let event::Event::Key(key) = event::read()? {
-                if key.kind == KeyEventKind::Press && key.code == KeyCode::Char('q') {
-                    break;
+// App state
+struct App {
+    counter: i64,
+    should_quit: bool,
+}
+
+// App ui render function
+fn ui(app: &App, f: &mut Frame<'_>) {
+    f.render_widget(
+        Paragraph::new(format!("Counter: {}", app.counter)),
+        f.size(),
+    );
+}
+
+// App update function
+fn update(app: &mut App) -> Result<()> {
+    if event::poll(std::time::Duration::from_millis(250))? {
+        if let Key(key) = event::read()? {
+            if key.kind == event::KeyEventKind::Press {
+                match key.code {
+                    Char('j') => app.counter += 1,
+                    Char('k') => app.counter -= 1,
+                    Char('q') => app.should_quit = true,
+                    _ => {}
                 }
             }
         }
     }
+    Ok(())
+}
 
-    stdout().execute(LeaveAlternateScreen)?;
-    disable_raw_mode()?;
+fn run() -> Result<()> {
+    // ratatui terminal
+    let mut t = Terminal::new(CrosstermBackend::new(std::io::stderr()))?;
+
+    // application state
+    let mut app = App {
+        counter: 0,
+        should_quit: false,
+    };
+
+    loop {
+        // application update
+        update(&mut app)?;
+
+        // application render
+        t.draw(|f| {
+            ui(&app, f);
+        })?;
+
+        // application exit
+        if app.should_quit {
+            break;
+        }
+    }
+
+    Ok(())
+}
+
+fn main() -> Result<()> {
+    // setup terminal
+    startup()?;
+
+    let result = run();
+
+    // teardown terminal before unwrapping Result of app run
+    shutdown()?;
+
+    result?;
+
     Ok(())
 }
