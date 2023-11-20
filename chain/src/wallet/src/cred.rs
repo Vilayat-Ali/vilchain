@@ -1,3 +1,5 @@
+use std::io::Bytes;
+
 use bip39::Mnemonic;
 use secp256k1::*;
 use serde::{Deserialize, Serialize};
@@ -27,7 +29,9 @@ pub fn generate_wallet_creds() -> Result<(), Box<dyn std::error::Error>> {
     // generating mneumonics
     // Mnemonic
     // A Secret Recovery Phrase, mnemonic phrase, or Seed Phrase is a set of typically either 12 or 24 words, which can be used to derive an infinite number of accounts. Often times these phrases are used by cryptocurrency hardware wallets, to be written down on a piece of paper by the user to safely back up the users' funds.
-    let seed_word_vec: Vec<String> = Mnemonic::from_entropy(secret_key.secret_bytes().as_slice())?
+    let mnemonic: Mnemonic = Mnemonic::from_entropy(secret_key.secret_bytes().as_slice())?;
+
+    let mnemonic_word_vec: Vec<String> = mnemonic
         .to_string()
         .split(' ')
         .map(|x| x.to_owned())
@@ -35,7 +39,7 @@ pub fn generate_wallet_creds() -> Result<(), Box<dyn std::error::Error>> {
 
     let contents: String = serde_json::to_string_pretty(&WalletCreds {
         address: format!("0x{}", public_key),
-        seeds: seed_word_vec,
+        seeds: mnemonic_word_vec,
         keys: WalletKeys {
             public_key: public_key.serialize().to_vec(),
             private_key: secret_key.secret_bytes(),
