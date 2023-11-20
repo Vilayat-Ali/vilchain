@@ -1,5 +1,3 @@
-use std::io::Bytes;
-
 use bip39::Mnemonic;
 use secp256k1::*;
 use serde::{Deserialize, Serialize};
