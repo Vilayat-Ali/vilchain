@@ -1,6 +1,4 @@
-use std::{
-    io::{Error, Write},
-};
+use std::io::{Error, Write};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 pub fn write_to_console(message: impl Into<String>, color: Option<Color>) -> Result<(), Error> {

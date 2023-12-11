@@ -1,3 +1,7 @@
+<p align='center'>
+<image src="./assets/logo.svg">
+</p>
+
 # VilChain: Unleashing Techno-Chaos with Rusty Rebellion
 
 Welcome to VilChain, where chaos meets code, and disruption is an art form. 🚀
