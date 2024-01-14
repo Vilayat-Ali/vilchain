@@ -4,7 +4,7 @@ members = ["src/node", "src/structure", "src/utils", "src/wallet"]
 resolver = "2"
 
 [workspace.dependencies]
-tokio-tungstenite = "0.20.1"
+tokio-tungstenite = "0.21.0"
 tokio = { version = "1.33.0", features = ["full"] }
 serde = { version = "1.0.189", features = ["derive"] }
 serde_json = "1.0.107"
@@ -17,6 +17,6 @@ secp256k1 = { version = "0.28.0", features = [
     "hashes/std",
 ] }
 bip39 = "2.0.0"
-ratatui = { version = "0.24.0", features = ["all-widgets"] }
+ratatui = { version = "0.25.0", features = ["all-widgets"] }
 crossterm = "0.27.0"
 criterion = "0.5.1"
