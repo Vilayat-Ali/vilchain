@@ -1,26 +1,10 @@
 [package]
 name = "node"
-authors = ["Syed Vilayat Ali Rizvi"]
 version = "0.1.0"
 edition = "2021"
-default-run = "node"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = { workspace = true }
 tokio-tungstenite = { workspace = true }
-serde = { workspace = true }
-pretty_env_logger = "0.5.0"
-serde_json = { workspace = true }
-dotenv = "0.15.0"
-envy = "0.4.2"
-log = "0.4.20"
-
-# structure
-structure = { path = "../structure" }
-utils = { path = "../utils" }
-futures-channel = "0.3.28"
-futures-util = "0.3.28"
-uuid = { version = "1.5.0", features = ["v4"] }
-rayon = "1.8.0"
+tokio = { workspace = true }
