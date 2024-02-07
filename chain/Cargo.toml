@@ -4,3 +4,6 @@ members = ["src/node", "src/structure", "src/utils", "src/wallet"]
 resolver = "2"
 
 [workspace.dependencies]
+serde = { version = "1.0.196", features = ["derive"] }
+tokio = { version = "1.36.0", features = ["full"] }
+rayon = "1.8.1"
