@@ -1,3 +1,5 @@
+pub mod txn;
+
 use serde::{Deserialize, Serialize};
 use std::fmt::{Debug, Display};
 
