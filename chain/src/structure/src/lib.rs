@@ -142,13 +142,6 @@ impl BigNum {
                 }
             };
 
-            println!("{} <=> {} with {}", d1, d2, {
-                match carry_forward {
-                        true => 1,
-                        false => 0
-                    }
-            });
-
             let added_digit = {
                 let sum = d1 + d2 + {
                     match carry_forward {
