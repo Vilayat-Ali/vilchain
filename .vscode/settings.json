@@ -58,6 +58,15 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "rust-analyzer.linkedProjects": [
     "./chain/src/node/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
+    "./chain/src/node/Cargo.toml",
+    "./chain/src/node/Cargo.toml",
+    "./chain/src/node/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
+    "./chain/src/structure/Cargo.toml",
     "./chain/src/structure/Cargo.toml"
   ]
 }
