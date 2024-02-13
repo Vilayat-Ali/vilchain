@@ -1,2 +1,3 @@
-#[tokio::main]
-async fn main() -> () {}
+fn main() {
+        print!("Hello World");
+}
