@@ -5,7 +5,7 @@ pub mod txn;
 use serde::{Deserialize, Serialize};
 use std::fmt::Display;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct BigNum {
     int_val: Vec<u8>,
     frac_val: [u8; 4],
@@ -178,7 +178,7 @@ impl BigNum {
         self.int_val = new_int_vec;
     }
 
-    pub fn substract(&mut self, big_num: BigNum) {
+    pub fn substract(&mut self, big_num: &BigNum) {
         todo!()
     }
 }
