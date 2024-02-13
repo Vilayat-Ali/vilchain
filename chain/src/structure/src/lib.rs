@@ -40,7 +40,6 @@ impl Display for BigNum {
 }
 
 impl BigNum {
-
     pub fn from_string<S>(num: S) -> Result<Self, String> 
         where S: Into<String>,
         {
@@ -48,7 +47,7 @@ impl BigNum {
             let num_arr = num_str.trim().split('.').map(|x| x.to_string()).collect::<Vec<String>>();
 
             match num_arr.len() {
-                0 => return Err("Invalid Big Number Format: The string passed is empty.".to_string()),
+                0 => return Err("Invalid Big Number Format: The string passed is empty".to_string()),
                 1 => {
                     let mut int_val_vec: Vec<u8> = Vec::with_capacity(num_arr[0].len());
                     for digit_char in num_arr[0].chars() {
@@ -93,8 +92,34 @@ impl BigNum {
             }
     }
 
-    pub fn add(&mut self, big_num: BigNum) {
-        todo!()
+    pub fn add(&mut self, big_num: &BigNum) {
+        let mut carry_forward = false;
+
+        for idx in (0..4).rev() {
+            let added_digit = {
+                let sum = self.frac_val[idx] + big_num.frac_val[idx] + {
+                    match carry_forward {
+                        true => 1,
+                        false => 0
+                    }
+                };
+
+                if sum > 9 {
+                    carry_forward = true;
+                    sum % 10
+                } else {
+                    carry_forward = false;
+                    sum
+                }
+            };
+            
+            self.frac_val[idx] = added_digit;
+        }
+
+        // int values sum in vecs
+        unimplemented!()
+
+        
     }
 
     pub fn substract(&mut self, big_num: BigNum) {
@@ -102,3 +127,18 @@ impl BigNum {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::BigNum;
+
+    #[test]
+    fn big_num_addition() {
+        let mut b1 = BigNum::from_string("0.0025").unwrap();
+        let b2 = BigNum::from_string("0.0025").unwrap();
+
+        // addition
+        b1.add(&b2);
+
+        assert_eq!(b1.frac_val, [0, 0, 5, 0]);
+    }
+}
