@@ -116,10 +116,73 @@ impl BigNum {
             self.frac_val[idx] = added_digit;
         }
 
-        // int values sum in vecs
-        unimplemented!()
+        let mut new_int_vec: Vec<u8> = Vec::with_capacity(self.int_val.len().max(big_num.int_val.len()));
 
-        
+        let mut self_idx: usize = self.int_val.len();
+        let mut big_num_idx: usize = big_num.int_val.len();
+
+        loop {
+            if self_idx == 0 && big_num_idx == 0 {
+                break;
+            }
+
+            let d1 = {
+                if self_idx != 0 {
+                    self.int_val[self_idx - 1]
+                } else {
+                    0
+                }
+            };
+
+            let d2 = {
+                if big_num_idx != 0 {
+                    big_num.int_val[big_num_idx - 1]
+                } else {
+                    0
+                }
+            };
+
+            println!("{} <=> {} with {}", d1, d2, {
+                match carry_forward {
+                        true => 1,
+                        false => 0
+                    }
+            });
+
+            let added_digit = {
+                let sum = d1 + d2 + {
+                    match carry_forward {
+                        true => 1,
+                        false => 0
+                    }
+                };
+
+                if sum > 9 {
+                    carry_forward = true;
+                    sum % 10
+                } else {
+                    carry_forward = false;
+                    sum
+                }
+            };
+
+            new_int_vec.push(added_digit);
+
+            if self_idx != 0 {
+                self_idx -= 1;
+            }
+
+            if big_num_idx != 0 {
+                big_num_idx -= 1;
+            }
+        }
+
+        if carry_forward {
+            new_int_vec.push(1);
+        }
+
+        new_int_vec.reverse();
+        self.int_val = new_int_vec;
     }
 
     pub fn substract(&mut self, big_num: BigNum) {
@@ -133,9 +196,10 @@ mod tests {
 
     #[test]
     fn big_num_addition() {
-        let mut b1 = BigNum::from_string("0.0025").unwrap();
-        let b2 = BigNum::from_string("0.0025").unwrap();
+        let mut b1 = BigNum::from_string("88.0025").unwrap();
+        let b2 = BigNum::from_string("93.0025").unwrap();
 
+        b1.add(&b2);
         assert_eq!(2 + 2, 4);
     }
 }
