@@ -179,7 +179,25 @@ impl BigNum {
     }
 
     pub fn substract(&mut self, big_num: &BigNum) {
-        todo!()
+        let mut is_result_neg: bool = false; // is resulting difference is negative or positive
+        let mut minimum_num_arr: Vec<u8> = Vec::new();
+
+        let bigger_num_arr: Vec<u8> = {
+            match self.int_val.len() > big_num.int_val.len() {
+                true => {
+                    minimum_num_arr = big_num.int_val.clone();
+                    self.int_val.clone()
+                },
+                false => {
+                    minimum_num_arr = self.int_val.clone();
+                    is_result_neg = true;
+                    big_num.int_val.clone()
+                }
+            }
+        };
+        let minimum_num_arr = minimum_num_arr; // shadowing the previous variable behind a non-mutable variable so as to prevent unplanned mutations
+
+        unimplemented!()
     }
 }
 
