@@ -62,14 +62,16 @@ impl TxnList for Vec<Txn> {
             return combine_hash(&txn_list[0], &txn_list[1]);
         }
 
-        let mut mid = txn_list.len() / 2;
+        let mid = txn_list.len() / 2;
         let left_hash_vec = txn_list[0..mid].to_vec();
         let right_hash_vec = txn_list[mid..].to_vec();
 
         let left_hash = Vec::compute_merkle_hash(left_hash_vec);
         let right_hash = Vec::compute_merkle_hash(right_hash_vec);
 
-        return combine_hash(&left_hash, &right_hash);
+        let mut hasher = Sha3_512::new();
+        hasher.update((left_hash + &right_hash).as_bytes());
+        format!("{:x}", hasher.finalize())
     }
 }
 
