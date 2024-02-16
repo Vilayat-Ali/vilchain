@@ -34,47 +34,6 @@ impl Txn {
     }
 }
 
-pub trait TxnList {
-    fn compute_merkle_hash(txn_list: Vec<Txn>) -> String;
-}
-
-impl TxnList for Vec<Txn> {
-    fn compute_merkle_hash(txn_list: Vec<Txn>) -> String {
-        let combine_hash = |txn_1: &Txn, txn_2: &Txn| {
-            let hash_txn_1 = txn_1.hash.clone();
-            let concat_hash = hash_txn_1 + &(txn_2.hash);
-
-            let mut hasher = Sha3_512::new();
-            hasher.update(serde_json::to_vec(&concat_hash).unwrap());
-            
-            format!("{:x}", hasher.finalize())
-        };
-
-        if txn_list.len() == 0 {
-            return String::new();
-        }
-
-        if txn_list.len() == 1 {
-            return combine_hash(&txn_list[0], &txn_list[0]);
-        }
-
-        if txn_list.len() == 2 {
-            return combine_hash(&txn_list[0], &txn_list[1]);
-        }
-
-        let mid = txn_list.len() / 2;
-        let left_hash_vec = txn_list[0..mid].to_vec();
-        let right_hash_vec = txn_list[mid..].to_vec();
-
-        let left_hash = Vec::compute_merkle_hash(left_hash_vec);
-        let right_hash = Vec::compute_merkle_hash(right_hash_vec);
-
-        let mut hasher = Sha3_512::new();
-        hasher.update((left_hash + &right_hash).as_bytes());
-        format!("{:x}", hasher.finalize())
-    }
-}
-
 #[derive(Serialize, Deserialize)]
 struct PlaceholderUnPublishedTxn {
     from: String,

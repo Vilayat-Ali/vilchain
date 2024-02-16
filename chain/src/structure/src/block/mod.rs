@@ -1,15 +1,15 @@
 use serde::{Serialize, Deserialize};
 use chrono::Local;
-use sha3::{Sha3_512, Digest};
+use std::collections::HashMap;
 
-use crate::txn::{Txn, TxnList};
+use crate::txn::Txn;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Block {
     prev_hash: Option<String>,
     hash: String,
     merkle_hash: String,
-    txns: Vec<Txn>,
+    txns: HashMap<String, Txn>,
     mined_at: String,
     mined_by: String, // address of validator
 }
@@ -49,7 +49,7 @@ pub struct BlockBuilder {
     pub prev_hash: Option<String>,
     pub hash: Option<String>,
     pub merkle_hash: String, // merkle hash of all txns
-    pub txns: Vec<Txn>,
+    pub txns: HashMap<String, Txn>,
     pub mined_at: String,
     pub mined_by: Option<String>, // address of validator
 }
@@ -69,7 +69,7 @@ impl BlockBuilder {
         Self {
             prev_hash: prev_hash.into(),
             hash: None,
-            txns: Vec::with_capacity(5),
+            txns: HashMap::with_capacity(5),
             mined_at: Local::now().to_string(),
             mined_by: None,
             merkle_hash: String::new(),
@@ -77,35 +77,14 @@ impl BlockBuilder {
     }
 
     pub fn add_txn(&mut self, txn: Txn) -> &mut Self {
-        self.txns.push(txn);
+        self.txns.insert(txn.hash.clone(), txn);
         self
     }
 
-    pub fn build<S>(&mut self, validator_address: S) -> Block 
+    pub fn build<S>(&mut self, _validator_address: S) -> Block 
         where S: Into<String>,
             {
-                let merkle_hash = Vec::compute_merkle_hash(self.txns.clone());
-
-                let placeholder_block = PlaceholderBlock {
-                    prev_hash: self.prev_hash.clone(),
-                    txns: Vec::compute_merkle_hash(self.txns.clone()),
-                    mined_at: Local::now().to_string(),
-                    mined_by: validator_address.into(),
-                };
-
-                let mut hasher = Sha3_512::new();
-                hasher.update(serde_json::to_vec(&placeholder_block).unwrap());
-
-                let block_hash = format!("{:x}", hasher.finalize());
-
-            Block {
-                prev_hash: placeholder_block.prev_hash.clone(),
-                hash: block_hash,
-                merkle_hash,
-                txns: self.txns.clone(),
-                mined_at: placeholder_block.mined_at.clone(),
-                mined_by: placeholder_block.mined_by.clone(),
-            }
+                todo!()
     }
 }
 
