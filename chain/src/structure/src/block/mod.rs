@@ -1,5 +1,6 @@
 use serde::{Serialize, Deserialize};
 use chrono::Local;
+use sha3::{Sha3_512, Digest};
 use std::collections::HashMap;
 
 use crate::txn::Txn;
@@ -77,14 +78,74 @@ impl BlockBuilder {
     }
 
     pub fn add_txn(&mut self, txn: Txn) -> &mut Self {
-        self.txns.insert(txn.hash.clone(), txn);
+        self.txns.insert(txn.hash.clone(),txn);
         self
     }
+    
+    fn compute_merkle_hash(txn_list: Vec<Txn>) -> String {
+        let combine_hash = |txn_1: &Txn, txn_2: &Txn| {
+            let hash_txn_1 = txn_1.hash.clone();
+            let concat_hash = hash_txn_1 + &(txn_2.hash);
 
-    pub fn build<S>(&mut self, _validator_address: S) -> Block 
+            let mut hasher = Sha3_512::new();
+            hasher.update(serde_json::to_vec(&concat_hash).unwrap());
+            
+            format!("{:x}", hasher.finalize())
+        };
+
+        if txn_list.len() == 0 {
+            return String::new();
+        }
+
+        if txn_list.len() == 1 {
+            return combine_hash(&txn_list[0], &txn_list[0]);
+        }
+
+        if txn_list.len() == 2 {
+            return combine_hash(&txn_list[0], &txn_list[1]);
+        }
+
+        let mid = txn_list.len() / 2;
+        let left_hash_vec = txn_list[0..mid].to_vec();
+        let right_hash_vec = txn_list[mid..].to_vec();
+
+        let left_hash = BlockBuilder::compute_merkle_hash(left_hash_vec);
+        let right_hash = BlockBuilder::compute_merkle_hash(right_hash_vec);
+
+        let mut hasher = Sha3_512::new();
+        hasher.update((left_hash + &right_hash).as_bytes());
+        format!("{:x}", hasher.finalize())
+    }
+
+    pub fn build<S>(&mut self, validator_address: S) -> Block 
         where S: Into<String>,
             {
-                todo!()
+                let txn_list: Vec<Txn> = self.txns.iter().map(|(_, txn)| {
+                        txn.clone()
+                    }).collect::<Vec<Txn>>();
+                
+                let merkle_hash = Self::compute_merkle_hash(txn_list);
+
+                let placeholder_block = PlaceholderBlock {
+                    prev_hash: self.prev_hash.clone(),
+                    txns: merkle_hash.clone(),
+                    mined_at: Local::now().to_string(),
+                    mined_by: validator_address.into(),
+                };
+
+                let mut hasher = Sha3_512::new();
+                hasher.update(serde_json::to_vec(&placeholder_block).unwrap());
+
+                let block_hash = format!("{:x}", hasher.finalize());
+
+            Block {
+                prev_hash: placeholder_block.prev_hash.clone(),
+                hash: block_hash,
+                merkle_hash,
+                txns: self.txns.clone(),
+                mined_at: placeholder_block.mined_at.clone(),
+                mined_by: placeholder_block.mined_by.clone(),
+            }
     }
 }
 

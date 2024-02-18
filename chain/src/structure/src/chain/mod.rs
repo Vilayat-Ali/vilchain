@@ -8,7 +8,8 @@ use crate::block::Block;
 pub struct VilChain {
     pub block_count: usize,
     pub chain_size: usize,
-    blocks: HashMap<String, Block>,
+    lookup_table: HashMap<String, Block>,
+    chain: Vec<Block>,
     last_block_hash: Option<String>,
     pub created_at: String,
     pub updated_at: String,
@@ -19,17 +20,18 @@ impl Default for VilChain {
         Self {
             block_count: 0,
             chain_size: 0,
-            blocks: HashMap::new(),
+            lookup_table: HashMap::new(),
+            chain: Vec::with_capacity(1000),
             last_block_hash: None,
             created_at: Local::now().to_string(),
-            updated_at: Local::now().to_string()
+            updated_at: Local::now().to_string(),
         }
     }
 }
 
 impl VilChain {
     pub fn new() -> Self {
-         VilChain::default()
+        Self::default()
     }
 
     pub fn get_last_block_hash(&self) -> Option<String> {
@@ -37,9 +39,9 @@ impl VilChain {
     }
 
     pub fn add_block(&mut self, block: Block) {
-        self.last_block_hash = Some(block.clone().get_block_hash().clone());
-        self.blocks.insert(block.get_block_hash().clone(), block);
-        self.chain_size = size_of_val(&self.blocks);
         self.block_count += 1;
+        self.lookup_table.insert(block.get_block_hash().clone(), block.clone());
+        self.chain.push(block);
+        self.chain_size = size_of_val(&self);
     } 
 }

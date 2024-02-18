@@ -90,3 +90,16 @@ impl UnPublishedTxn {
         to_string_pretty(&self).unwrap()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{UnPublishedTxn, Txn};
+
+    #[test]
+    fn txn_creation() {
+        let t_payload = UnPublishedTxn::new("0x12345", "0x12345", "5.43").unwrap();
+        let txn = Txn::from(t_payload);
+
+        assert!(txn.hash.len() > 0);
+    }
+}

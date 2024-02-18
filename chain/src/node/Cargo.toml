@@ -7,4 +7,8 @@ default-run = "node"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+toml = "0.8.10"
+tokio-tungstenite = "0.21.0"
+tokio = { workspace = true }
 structure = { path = "../structure" }
+
