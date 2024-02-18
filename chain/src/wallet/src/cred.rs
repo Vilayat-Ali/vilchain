@@ -3,6 +3,7 @@ extern crate rand;
 
 use bip39::{Mnemonic, Language, Error};
 use rand::{rngs::StdRng, Rng, SeedableRng};
+use rsa::{RsaPrivateKey, RsaPublicKey};
 
 pub struct WalletCred {
     pub wallet_address: String,
@@ -12,11 +13,16 @@ pub struct WalletCred {
     pub public_key: Vec<u8>
 }
 
+const BITS: usize = 2048;
+
 impl WalletCred {
     pub fn new() -> Result<WalletCred, Error> {
     let mut rng = StdRng::from_entropy();
-    let entropy = (0..32).map(|_| rng.gen::<u8>()).collect::<Vec<u8>>();
 
+    let private_key = RsaPrivateKey::new(&mut rand::thread_rng(), BITS).unwrap();
+    let public_key = RsaPublicKey::from(&private_key);
+
+    let entropy = (0..32).map(|_| rng.gen::<u8>()).collect::<Vec<u8>>();
     let mnemonic = Mnemonic::from_entropy_in(Language::English, &entropy)?;
 
     Ok(WalletCred {

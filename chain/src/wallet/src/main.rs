@@ -1,3 +1,5 @@
+use wallet::cred::WalletCred;
+
 fn main() {
-    println!("Hello World");
+    WalletCred::new().unwrap();
 }
