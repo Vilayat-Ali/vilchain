@@ -10,3 +10,5 @@ sha3 = { workspace = true }
 serde = { workspace = true }
 tokio = { workspace = true }
 structure = { path = "../structure" }
+bip39 = "2.0.0"
+rand = "0.8.5"
