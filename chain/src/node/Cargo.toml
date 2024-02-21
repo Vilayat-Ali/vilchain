@@ -11,4 +11,4 @@ toml = "0.8.10"
 tokio-tungstenite = "0.21.0"
 tokio = { workspace = true }
 structure = { path = "../structure" }
-
+wallet = { path = "../wallet" }
